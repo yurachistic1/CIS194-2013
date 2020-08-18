@@ -32,3 +32,14 @@ validate n = mod ((sumDigits
 mapToDigits :: [Integer] -> [[Integer]]
 mapToDigits []          = []
 mapToDigits (x : xs)    = toDigits x : mapToDigits xs
+
+
+type Peg = String
+type Move = (Peg, Peg)
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi 0 _ _ _ = []
+hanoi 1 startPeg endPeg extraPeg = [(startPeg, endPeg)]
+hanoi n startPeg endPeg extraPeg = 
+    hanoi (n - 1) startPeg extraPeg endPeg ++
+    hanoi 1 startPeg endPeg extraPeg ++
+    hanoi (n - 1) extraPeg endPeg startPeg
