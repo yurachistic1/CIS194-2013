@@ -1,3 +1,6 @@
+
+import Data.List
+
 -- Part 1 --
 
 fun1 :: [Integer] -> Integer
@@ -44,3 +47,17 @@ foldTree = foldr addNode Leaf . map toNode
 
 -- Part 3 -- 
 
+xor :: [Bool] -> Bool
+xor = foldr (\x y -> if x then not y else y) False
+
+
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\x y -> (f x) : y) []
+
+-- Part 4 --
+
+sunSieveExl :: Integer -> [Integer]
+sunSieveExl n = [k| i <- [1..n], j <- [1..n], i <= j, let k = i+j+2*i*j, k<n]
+
+sunSieve :: Integer -> [Integer]
+sunSieve n = map (\x -> 2*x + 1) $ [1 .. n] \\ sunSieveExl n
